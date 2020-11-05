@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.cbs.provider }}-{{ include "transaction-service.fullname" . }}
+  namespace: default
+data:
+  cbs_provider: "{{ .Values.cbs.provider }}"
+  {{- range $k, $v := .Values.config }}
+  {{ $k }}: {{ $v | quote }}
+  {{- end}}

@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: banking-service
+
+  datasource:
+    url: "jdbc:mysql://localhost:3306/template"
+    username: "stubbankuser"
+    password: "W0b#nk"
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+          ddl-auto: none
+        default_schema:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  flyway:
+    schemas:
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.ow: INFO
+
+management:
+  endpoints:
+    web:
+      base-path: "/"
+      path-mapping:
+        prometheus: "metrics"
+      exposure:
+        include: ["health", "info", "prometheus"]
+  endpoint:
+    prometheus:
+      enabled: true
+  info:
+    git:
+      mode: full

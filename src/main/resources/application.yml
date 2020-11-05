@@ -1,0 +1,56 @@
+spring:
+  application:
+    name: banking-service
+
+  h2:
+    console:
+      enabled: true
+
+  datasource:
+    url: "jdbc:h2:mem:testdb"
+    driverClassName: org.h2.Driver
+    username: ${DB_USER:sa}
+    password: ${DB_PASSWORD:password}
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+          ddl-auto: none
+        default_schema:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  flyway:
+    schemas:
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+  servlet:
+    context-path: "/app"
+
+stubbank:
+  clientId: ${CLIENT_ID:stubbank}
+  secret: ${CLIENT_SECRET:stubbanksecret}
+  baseUrl: "https://sandbox.stubbank.com"
+
+cbs:
+  provider: ${CBS_PROVIDER}
+  owBank:
+    secured:
+      enabled: ${OWBANK_CBS_SECURED:false}
+      url:
+      clientId:
+      secret:
+    host: ${OWBANK_CBS_HOST:http://35.225.221.81:3000}
+    baseUrl:
+      register: ${OWBANK_CBS_API_REGISTER:/sync/fineract_registration}
+      activate: ${OWBANK_CBS_API_ACTIVATE:/sync/fineract_new_account}
+      accounts: ${OWBANK_CBS_API_ACCOUNTS:/sync/fineract_accounts}
+      deposit: ${OWBANK_CBS_API_DEPOSIT:/sync/fineract_deposit}
+      transactions: ${OWBANK_CBS_API_DEPOSIT:/sync/fineract_transactions}
+      transfer: ${OWBANK_CBS_API_DEPOSIT:/sync/fineract_transfer}
+
+sa_token: A0009193302352369176633!WYDKfsssZJPgkDoXrTD1h7+vGuslLwzm91M5yoqHbWqLX1hh5PPXcduP4WNKEnLXigBfX57dPHssN1n5kyKdgqVZh2U=
